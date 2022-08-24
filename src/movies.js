@@ -20,18 +20,30 @@ function getAllDirectors(movies) {
 function howManyMovies(movies) {
   const stevenSpielbergMovies = movies.filter((film) => {
     return film.director === "Steven Spielberg" && film.genre.includes("Drama");
-  }); return stevenSpielbergMovies.length;
+  });
+  return stevenSpielbergMovies.length;
 }
 
 // Iteration 3: All scores average - Get the average of all scores with 2 decimals
 function scoresAverage(moviesArray) {
-  const scoreAve = moviesArray.reduce((accumulator, movie) => {
-    return (accumulator + movie.score) / moviesArray.length;
-  }, 0); return scoreAve;
+  const sumMovieScores = moviesArray.reduce((accumulator, movie) => {
+    if (typeof movie.score === "undefined" || movie.score === "") {
+      //why typeof with string values, if all the scores are numbers? how should I come up with something like this?
+      return accumulator; // for which reason?
+    } else {
+      return accumulator + movie.score / moviesArray.length;
+    }
+  }, 0);
+  return Math.round(sumMovieScores * 100) / 100;
 }
 
 // Iteration 4: Drama movies - Get the average of Drama Movies
-function dramaMoviesScore(moviesArray) {}
+function dramaMoviesScore(moviesArray) {
+  const dramaMovies = moviesArray.filter((movie) =>       // why no curly brackets?
+    movie.genre.includes("Drama"));
+  const dramaScoreAve = scoresAverage(dramaMovies);
+  return dramaScoreAve;
+}
 
 // Iteration 5: Ordering by year - Order by year, ascending (in growing order)
 function orderByYear(moviesArray) {}
