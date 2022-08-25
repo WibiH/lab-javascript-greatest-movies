@@ -39,17 +39,59 @@ function scoresAverage(moviesArray) {
 
 // Iteration 4: Drama movies - Get the average of Drama Movies
 function dramaMoviesScore(moviesArray) {
-  const dramaMovies = moviesArray.filter((movie) =>       // why no curly brackets?
-    movie.genre.includes("Drama"));
+  const dramaMovies = moviesArray.filter(
+    (
+      movie // why no curly brackets?
+    ) => movie.genre.includes("Drama")
+  );
   const dramaScoreAve = scoresAverage(dramaMovies);
   return dramaScoreAve;
 }
 
 // Iteration 5: Ordering by year - Order by year, ascending (in growing order)
-function orderByYear(moviesArray) {}
+function orderByYear(moviesArray) {
+  const moviesClone = [...moviesArray];
+  moviesClone.sort((a, b) => {
+    if (a.year < b.year) {
+      return -1;
+    } else if (a.year > b.year) {
+      return 1;
+    } else {
+      return a.title.localeCompare(b.title);
+    }
+  });
+  return moviesClone;
+
+  /* mine doesn´t work – why?
+  const copiedMoviesArray = moviesArray.slice();
+  copiedMoviesYears.sort((a, b) => {
+    if (a.year < b.year) {
+      return -1;
+    } else if (a.year > b.year) {
+      return 1;
+    } else {
+      return a.title.localeCompare(b.title);
+      // return copiedMoviesYears.title.sort(a, b);       why does mine not work?
+    }
+  });
+  return copiedMoviesYears;
+ */
+}
 
 // Iteration 6: Alphabetic Order - Order by title and print the first 20 titles
-function orderAlphabetically(moviesArray) {}
+function orderAlphabetically(moviesArray) {
+  const titles = moviesArray.map((movie) => {
+    return movie.title;
+  });
+  titles.sort();
+  return titles.slice(0, 20);
+
+  /* 
+  const moviesArrayClone = [...moviesArray];
+  const movieTitles = moviesArrayClone.title.sort();
+  return movieTitles.slice(0, 20);
+  */
+}
 
 // BONUS - Iteration 7: Time Format - Turn duration of the movies from hours to minutes
 function turnHoursToMinutes(moviesArray) {}
