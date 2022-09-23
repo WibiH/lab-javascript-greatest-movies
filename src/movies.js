@@ -28,8 +28,7 @@ function howManyMovies(movies) {
 function scoresAverage(moviesArray) {
   const sumMovieScores = moviesArray.reduce((accumulator, movie) => {
     if (typeof movie.score === "undefined" || movie.score === "") {
-      //why typeof with string values, if all the scores are numbers? how should I come up with something like this?
-      return accumulator; // for which reason?
+      return accumulator;
     } else {
       return accumulator + movie.score / moviesArray.length;
     }
@@ -39,10 +38,8 @@ function scoresAverage(moviesArray) {
 
 // Iteration 4: Drama movies - Get the average of Drama Movies
 function dramaMoviesScore(moviesArray) {
-  const dramaMovies = moviesArray.filter(
-    (
-      movie // why no curly brackets?
-    ) => movie.genre.includes("Drama")
+  const dramaMovies = moviesArray.filter((movie) =>
+    movie.genre.includes("Drama")
   );
   const dramaScoreAve = scoresAverage(dramaMovies);
   return dramaScoreAve;
@@ -61,21 +58,6 @@ function orderByYear(moviesArray) {
     }
   });
   return moviesClone;
-
-  /* mine doesn´t work – why?
-  const copiedMoviesArray = moviesArray.slice();
-  copiedMoviesYears.sort((a, b) => {
-    if (a.year < b.year) {
-      return -1;
-    } else if (a.year > b.year) {
-      return 1;
-    } else {
-      return a.title.localeCompare(b.title);
-      // return copiedMoviesYears.title.sort(a, b);       why does mine not work?
-    }
-  });
-  return copiedMoviesYears;
- */
 }
 
 // Iteration 6: Alphabetic Order - Order by title and print the first 20 titles
@@ -85,16 +67,22 @@ function orderAlphabetically(moviesArray) {
   });
   titles.sort();
   return titles.slice(0, 20);
-
-  /* 
-  const moviesArrayClone = [...moviesArray];
-  const movieTitles = moviesArrayClone.title.sort();
-  return movieTitles.slice(0, 20);
-  */
 }
 
 // BONUS - Iteration 7: Time Format - Turn duration of the movies from hours to minutes
-function turnHoursToMinutes(moviesArray) {}
+function turnHoursToMinutes(moviesArray) {
+  const moviesClone = [...moviesArray];
+  const newArray = moviesArray.map((movie) => {
+    const durationArray = movie.duration.split(" ");
+    const h = parseInt(durationArray[0]) * 60;
+    const min = durationArray.length > 1 ? parseInt(durationArray[1]) : 0;
+    return {
+      ...movie,
+      duration: h + min,
+    };
+  });
+  return newArray;
+}
 
 // BONUS - Iteration 8: Best yearly score average - Best yearly score average
 function bestYearAvg(moviesArray) {}
